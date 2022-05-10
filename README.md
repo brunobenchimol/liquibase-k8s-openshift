@@ -1,0 +1,1 @@
+# liquibase-k8s-openshift
