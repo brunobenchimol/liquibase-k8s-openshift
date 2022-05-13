@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: liquibase-k8s-openshift
+spec:
+  template:
+    spec:
+      initContainers:
+        - name: preliquibase
+          image: docker.io/brunobenchimol/liquibase-springboot:latest
+          envFrom:
+            - configMapRef:
+                name: liquibase-config
+        - name: liquibase
+          image: docker.io/brunobenchimol/liquibase-k8s-openshift:latest
+          command: ["/bin/sh"]
+          args: ["-c", "docker-entrypoint.sh --url=${LIQUIBASE_URL} --username=${LIQUIBASE_USERNAME} --password=${LIQUIBASE_PASSWORD} --changelog-file=$LIQUIBASE_CHANGELOGFILE --default-schema-name=$LIQUIBASE_DEFAULT_SCHEMA_NAME update"]
+          envFrom:
+            - configMapRef:
+                name: liquibase-config

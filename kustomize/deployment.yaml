@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: liquibase-k8s-openshift
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: liquibase-k8s-openshift
+  template:
+    metadata:
+      labels:
+        app: liquibase-k8s-openshift
+    spec:
+      containers:
+        - name: db-health-check
+          image: docker.io/brunobenchimol/liquibase-springboot:latest
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: liquibase-config
+          env:
+            - name: LIQUIBASE_ENABLE
+              value: "false"
+            - name: APP_INITCONTAINER_ENABLE
+              value: "false"

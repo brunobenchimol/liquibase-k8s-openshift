@@ -1,0 +1,13 @@
+resources:
+  - kustomize/liquibase-configmap.yaml
+  - kustomize/deployment.yaml
+
+#configMapGenerator:
+#- name: liquibase-configmap
+#  literals:
+#  - CUSTOM_VAR=sample
+#  options:
+#    disableNameSuffixHash: true
+
+patchesStrategicMerge:
+  - kustomize/liquibase-initcontainer.yaml

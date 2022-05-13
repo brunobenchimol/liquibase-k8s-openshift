@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: liquibase-config
+data:
+  # INSTALL_MYSQL: "false"
+  APP_INITCONTAINER_ENABLE: "true"
+  LIQUIBASE_ENABLE: "true"
+  LIQUIBASE_URL: "jdbc:postgresql://postgresql:5432/docker"
+  LIQUIBASE_USERNAME: "postgres"
+  LIQUIBASE_PASSWORD: "docker"
+  LIQUIBASE_DEFAULT_SCHEMA_NAME: "docker"
+  LIQUIBASE_CHANGELOGFILE: "changelog.xml"
